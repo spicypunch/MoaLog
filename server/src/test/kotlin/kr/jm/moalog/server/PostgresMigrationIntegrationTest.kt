@@ -63,7 +63,16 @@ class PostgresMigrationIntegrationTest(
             Int::class.java,
         )
         assertEquals(1, schemaExists ?: 0)
-        assertEquals(6, JdbcTestUtils.countRowsInTable(jdbcTemplate, "moalog.flyway_schema_history"))
+        val appliedVersions = jdbcTemplate.queryForList(
+            """
+            select version
+            from moalog.flyway_schema_history
+            where version is not null and success = true
+            order by installed_rank
+            """.trimIndent(),
+            String::class.java,
+        )
+        assertEquals(listOf("1", "2", "3", "4", "5", "6"), appliedVersions)
         val authSessionTableExists = jdbcTemplate.queryForObject(
             "select count(*) from information_schema.tables where table_schema = 'moalog' and table_name = 'auth_sessions'",
             Int::class.java,
