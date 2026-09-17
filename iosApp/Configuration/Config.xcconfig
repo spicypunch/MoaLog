@@ -1,0 +1,7 @@
+BUNDLE_ID=kr.jm.moalog
+APP_NAME=모아로그
+TEAM_ID=
+MOALOG_API_BASE_URL=https:/$()/api.example.invalid
+MOALOG_API_BASE_URL[config=Debug]=http:/$()/localhost:8080
+MOALOG_API_ALLOW_INSECURE_HTTP=NO
+MOALOG_API_ALLOW_INSECURE_HTTP[config=Debug]=YES

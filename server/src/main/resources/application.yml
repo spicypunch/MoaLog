@@ -1,0 +1,65 @@
+spring:
+  application:
+    name: moalog-server
+  datasource:
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+  jpa:
+    open-in-view: false
+    properties:
+      hibernate:
+        default_schema: moalog
+    hibernate:
+      ddl-auto: validate
+  flyway:
+    enabled: true
+    create-schemas: true
+    default-schema: moalog
+    schemas: moalog
+  mvc:
+    problemdetails:
+      enabled: true
+
+server:
+  port: ${SERVER_PORT:8080}
+  # Keep NONE on directly reachable instances. Set FRAMEWORK only behind a trusted edge that strips
+  # client-supplied forwarding headers and writes the canonical client address.
+  forward-headers-strategy: ${SERVER_FORWARD_HEADERS_STRATEGY:NONE}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      probes:
+        enabled: true
+  info:
+    env:
+      enabled: true
+
+info:
+  app:
+    name: MoaLog Server
+    version: 0.1.0
+
+moalog:
+  household:
+    invitation-ttl: ${MOALOG_HOUSEHOLD_INVITATION_TTL:P7D}
+  auth:
+    access-token:
+      issuer: ${MOALOG_AUTH_ACCESS_TOKEN_ISSUER}
+      audience: ${MOALOG_AUTH_ACCESS_TOKEN_AUDIENCE}
+      secret-base64: ${MOALOG_AUTH_ACCESS_TOKEN_SECRET_BASE64}
+      ttl: ${MOALOG_AUTH_ACCESS_TOKEN_TTL:PT15M}
+    refresh-token-ttl: ${MOALOG_AUTH_REFRESH_TOKEN_TTL:P30D}
+    refresh-token-replay-grace: ${MOALOG_AUTH_REFRESH_TOKEN_REPLAY_GRACE:PT30S}
+    login-challenge-ttl: ${MOALOG_AUTH_LOGIN_CHALLENGE_TTL:PT5M}
+    max-active-login-challenges: ${MOALOG_AUTH_MAX_ACTIVE_LOGIN_CHALLENGES:10000}
+    max-active-login-challenges-per-device: ${MOALOG_AUTH_MAX_ACTIVE_LOGIN_CHALLENGES_PER_DEVICE:20}
+    max-active-login-challenges-per-source: ${MOALOG_AUTH_MAX_ACTIVE_LOGIN_CHALLENGES_PER_SOURCE:200}
+    max-exchange-attempts-per-challenge: ${MOALOG_AUTH_MAX_EXCHANGE_ATTEMPTS_PER_CHALLENGE:5}
+    google-audience: ${MOALOG_AUTH_GOOGLE_AUDIENCE}
+    apple-audience: ${MOALOG_AUTH_APPLE_AUDIENCE}

@@ -1,0 +1,7 @@
+# Android SDK path is machine-specific.
+sdk.dir=/path/to/Android/sdk
+
+# Local API URL examples. Never place production secrets here.
+moalog.api.baseUrl.android=http://10.0.2.2:8080
+moalog.api.baseUrl.ios=http://localhost:8080
+moalog.google.webClientId=replace-with-google-web-client-id.apps.googleusercontent.com

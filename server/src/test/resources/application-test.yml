@@ -1,0 +1,35 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:moalog;MODE=PostgreSQL;DB_CLOSE_DELAY=-1
+    username: sa
+    password:
+  flyway:
+    enabled: true
+    create-schemas: true
+    default-schema: moalog
+    schemas: moalog
+  jpa:
+    properties:
+      hibernate:
+        default_schema: PUBLIC
+    hibernate:
+      ddl-auto: validate
+
+moalog:
+  household:
+    invitation-ttl: P7D
+  auth:
+    access-token:
+      issuer: https://test.moalog.local
+      audience: moalog-test
+      secret-base64: MDEyMzQ1Njc4OWFiY2RlZjAxMjM0NTY3ODlhYmNkZWY=
+      ttl: PT15M
+    refresh-token-ttl: P30D
+    refresh-token-replay-grace: PT30S
+    login-challenge-ttl: PT5M
+    max-active-login-challenges: 5
+    max-active-login-challenges-per-device: 3
+    max-active-login-challenges-per-source: 3
+    max-exchange-attempts-per-challenge: 3
+    google-audience: google-test-client
+    apple-audience: apple-test-client
